@@ -1,0 +1,51 @@
+#toast-container {
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+  height: 20vh;
+  border-radius: 20px;
+  background-color: #505263;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+}
+.toast-close {
+  position: absolute;
+  color: #99e5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: #727482;
+  top: 10px;
+  right: 10px;
+}
+.toast-close:hover,
+.toast-close:focus {
+  outline: none;
+  background-color: #99e5e1;
+  color: #727482;
+}
+.toast-success {
+  color: #b9d2b1;
+}
+.toast-failed {
+  color: #fca17d;
+}
+.toast-icon {
+  display: flex;
+  margin-right: 1vw;
+  align-items: center;
+  justify-content: center;
+}
+.toast-title {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: center;
+}

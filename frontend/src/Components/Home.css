@@ -1,0 +1,83 @@
+.container {
+  height: 80vh;
+  max-height: 80vh;
+  width: 90vw;
+  background-color: #505263;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 20px;
+}
+.create-task {
+  height: 10vh;
+  width: 80vw;
+  background-color: #caa8f5;
+  color: #25283d;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5vh;
+}
+.tabs {
+  top: -5vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80vw;
+  height: 10vh;
+}
+.tab {
+  width: 20vw;
+  margin: 1vh;
+  display: flex;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: center;
+  color: #b9d2b1;
+  height: 8vh;
+  background-color: #727482;
+  border: none;
+  border-radius: 20px;
+}
+.inactive-tab {
+  color: #b9d2b1;
+  background-color: #727482;
+}
+.tab:focus,
+.tab:hover,
+.active-tab {
+  outline: none;
+  background-color: #b9d2b1;
+  color: #727482;
+}
+.create-task:hover {
+  background-color: #25283d;
+  color: #caa8f5;
+}
+.secondary-container {
+  max-height: 65vh;
+  width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+.task-container {
+  margin: 1vh;
+  margin-top: 0vh;
+  height: 26vh;
+  width: 26vh;
+  border-radius: 20px;
+  background-color: #727482;
+}
+.task-container:hover {
+  height: 52vh;
+  width: 52vh;
+}
