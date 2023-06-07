@@ -72,12 +72,56 @@
 .task-container {
   margin: 1vh;
   margin-top: 0vh;
-  height: 26vh;
-  width: 26vh;
+  height: 25vh;
+  width: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 20px;
   background-color: #727482;
 }
-.task-container:hover {
-  height: 52vh;
-  width: 52vh;
+.task-title {
+  height: 5vh;
+  color: #99e5e1;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-description {
+  height: 18vh;
+  color: #b9d2b1;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.task-button-bar {
+  height: 7vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-button {
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  background-color: #25283d00;
+  color: #b9d2b1;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-button:focus,
+.task-button:hover {
+  background-color: #b9d2b1;
+  color: #727482;
+  outline: none;
 }

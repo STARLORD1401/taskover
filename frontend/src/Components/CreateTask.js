@@ -3,7 +3,8 @@ import AddIcon from "@mui/icons-material/Add";
 import "./CreateTask.css";
 
 function CreateTask() {
-  const [description, setDescription] = useState("");
+  const [task, setTask] = useState({ title: "", description: "" });
+
   const descriptionRef = useRef();
   function descFocus() {
     descriptionRef.current.focus();
@@ -12,7 +13,7 @@ function CreateTask() {
     descriptionRef.current.style.height = "auto";
     const scrollHeight = descriptionRef.current.scrollHeight;
     descriptionRef.current.style.height = scrollHeight + "px";
-  }, [description]);
+  }, [task.description]);
   return (
     <div id="create-task-container">
       <div id="create-task-header">create new task</div>
@@ -21,20 +22,27 @@ function CreateTask() {
         autoComplete="off"
         maxLength={40}
         placeholder="enter a title (maximum 40 letters)"
-      ></input>
+        onChange={(e) => {
+          setTask({ title: e.target.value() });
+        }}
+      />
       <textarea
         id="create-task-description"
         ref={descriptionRef}
         autoComplete="off"
-        value={description}
         style={{ maxHeight: "20vh" }}
         placeholder="enter a description (maximum 200 letters)"
         maxLength={200}
         onChange={(e) => {
-          setDescription(e.target.value);
+          setTask({ description: e.target.value() });
         }}
       ></textarea>
-      <button id="create-task-button" onClick={descFocus}>
+      <button
+        id="create-task-button"
+        onClick={(e) => {
+          console.log(task);
+        }}
+      >
         <AddIcon />
       </button>
     </div>
