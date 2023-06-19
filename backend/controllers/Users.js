@@ -69,6 +69,8 @@ const login = router.post("/login", async (req, res) => {
     } else {
       res.status(404).send("User does not exist.");
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 });
 export default { register, login, checkUser };
