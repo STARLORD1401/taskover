@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { useDispatch, useSelector } from "react-redux";
-import { showToast } from "../features/toast/toastSlice.js";
-import { create } from "../features/task/tasksSlice.js";
+import { useSelector } from "react-redux";
 import axios from "../axios.js";
 import "./CreateTask.css";
 import Input from "./Input.js";
 function CreateTask() {
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { tab } = useSelector((state) => state.tab);
   const [errorFlag, setErrorFlag] = useState(false);
@@ -28,6 +25,7 @@ function CreateTask() {
       const scrollHeight = descriptionRef.current.scrollHeight;
       descriptionRef.current.style.height = scrollHeight + "px";
     }
+    // eslint-disable-next-line
   }, [task, groupMembers]);
 
   const addGroupMember = async () => {

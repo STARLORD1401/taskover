@@ -15,6 +15,7 @@ function MyTasks() {
   useEffect(() => {
     dispatch(showNavbar(true));
     loadTasks();
+    // eslint-disable-next-line
   }, []);
   const loadTasks = async () => {
     await axios
