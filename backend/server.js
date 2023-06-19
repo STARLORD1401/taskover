@@ -9,6 +9,7 @@ app.use(express.json());
 app.listen(process.env.PORT);
 app.use(express.json());
 app.use("/", index, () => {
+  console.log(PORT);
   try {
     mongoose.connect(process.env.TASKOVER_URI);
     console.log(`Connected to ${PORT}`);
