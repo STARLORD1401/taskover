@@ -12,6 +12,7 @@ function Toast() {
     setTimeout(() => {
       dispatch(showToast([false, ""]));
     }, 5000);
+    // eslint-disable-next-line
   }, [toast]);
   return (
     <div id="toast-container" className={`toast-${toast[1]}`}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CreateTask from "./CreateTask";
 import PersonIcon from "@mui/icons-material/Person";
@@ -7,7 +7,7 @@ import "./Home.css";
 import MyTasks from "./MyTasks";
 import { groupTasksTab, myTasksTab } from "../features/tab/tabSlice";
 
-function Home({}) {
+function Home() {
   const { tab } = useSelector((state) => state.tab);
   const dispatch = useDispatch();
   useEffect(() => {}, []);
