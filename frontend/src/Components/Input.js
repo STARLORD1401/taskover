@@ -11,6 +11,7 @@ function Input({
   setInputError,
   setErrorFlag,
   style,
+  formSubmitted,
 }) {
   useEffect(() => {
     setErrorFlag(false);
@@ -20,9 +21,11 @@ function Input({
         setErrorFlag(true);
       }
     }
-    setInputError(errList);
+    if (formSubmitted) {
+      setInputError(errList);
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [creds, formSubmitted]);
   return (
     <div className="field" id={param}>
       <div className="field-header">

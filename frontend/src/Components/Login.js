@@ -23,11 +23,14 @@ function Login({ setToggleForm }) {
     username: [false, ""],
     password: [false, ""],
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   useEffect(() => {
     dispatch(showNavbar(false));
     // eslint-disable-next-line
   }, [creds]);
   const login = async () => {
+    setFormSubmitted(true);
     if (!errorFlag) {
       await axios
         .post("/users/login", { creds })
@@ -67,6 +70,7 @@ function Login({ setToggleForm }) {
                 setInputError={setInputError}
                 inputError={inputError}
                 setErrorFlag={setErrorFlag}
+                formSubmitted={formSubmitted}
                 style={{ width: "28vw" }}
               />
             );

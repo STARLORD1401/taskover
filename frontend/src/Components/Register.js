@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "../axios";
 import Input from "./Input";
 import { showToast } from "../features/toast/toastSlice.js";
 import { useDispatch } from "react-redux";
-import validateForm from "./FormValidate";
 import "./Form.css";
 function Register({ setToggleForm }) {
   const dispatch = useDispatch();
@@ -13,7 +12,6 @@ function Register({ setToggleForm }) {
     password: "",
     confirmPassword: "",
   });
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const credArray = [
     ["email", "email", "email"],
     ["username", "username", "text"],
@@ -26,23 +24,11 @@ function Register({ setToggleForm }) {
     email: [false, ""],
     confirmPassword: [false, ""],
   });
-  useEffect(() => {
-    if (formSubmitted) {
-      const errList = validateForm(creds);
-      setInputError(errList);
-    }
-  }, [creds, formSubmitted]);
+  const [errorFlag, setErrorFlag] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const register = async () => {
     setFormSubmitted(true);
-    const errList = validateForm(creds);
-    let errorFlag = false;
-    for (const err in errList) {
-      if (errList[err][0]) {
-        errorFlag = true;
-      }
-    }
-    console.log(errList);
-    setInputError(errList);
     if (!errorFlag) {
       await axios
         .post("/users/register", {
@@ -81,7 +67,11 @@ function Register({ setToggleForm }) {
                 type={cred[2]}
                 setCreds={setCreds}
                 creds={creds}
+                setInputError={setInputError}
                 inputError={inputError}
+                setErrorFlag={setErrorFlag}
+                style={{ width: "28vw" }}
+                formSubmitted={formSubmitted}
               />
             );
           })}
