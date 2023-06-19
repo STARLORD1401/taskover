@@ -1,16 +1,10 @@
 import mongoose, { Schema } from "mongoose";
-const Schema = mongoose.Schema;
 var taskSchema = new Schema(
   {
-    users: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Users",
-      },
-    ],
+    user_id: { type: Schema.Types.ObjectId, ref: "users", required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    complete: { type: Boolean },
+    completed: { type: Boolean, required: true },
   },
   { timestamps: true, collection: "tasks" }
 );

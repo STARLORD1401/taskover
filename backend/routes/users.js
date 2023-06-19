@@ -7,4 +7,5 @@ router.use(express.json());
 router.use(Cors());
 router.post("/register", userController.register);
 router.post("/login", userController.login);
+router.post("/check-user", userController.checkUser);
 export default router;

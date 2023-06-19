@@ -11,7 +11,7 @@
 }
 .create-task {
   height: 10vh;
-  width: 80vw;
+  width: 70vw;
   background-color: #caa8f5;
   color: #25283d;
   font-size: 30px;
@@ -23,15 +23,15 @@
   margin: 2.5vh;
 }
 .tabs {
-  top: -5vh;
+  margin-top: 2.5vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 80vw;
+  width: 60vw;
   height: 10vh;
 }
 .tab {
-  width: 20vw;
+  width: 15vw;
   margin: 1vh;
   display: flex;
   display: flex;
@@ -61,8 +61,16 @@
   color: #caa8f5;
 }
 .secondary-container {
-  max-height: 65vh;
+  height: 65vh;
   width: 80vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.tasks-container {
+  margin-top: 2.5vh;
+  max-height: 60vh;
+  width: 50vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -82,7 +90,7 @@
   background-color: #727482;
 }
 .task-title {
-  height: 5vh;
+  height: 7vh;
   color: #99e5e1;
   font-size: 20px;
   font-weight: bold;
@@ -91,7 +99,8 @@
   justify-content: center;
 }
 .task-description {
-  height: 18vh;
+  padding: 15px;
+  height: 11vh;
   color: #b9d2b1;
   font-size: 15px;
   font-weight: bold;

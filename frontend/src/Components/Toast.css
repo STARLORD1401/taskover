@@ -1,5 +1,6 @@
 #toast-container {
   position: absolute;
+  z-index: 5;
   top: 1vh;
   right: 1vw;
   height: 20vh;
@@ -32,9 +33,11 @@
 }
 .toast-success {
   color: #b9d2b1;
+  outline: 2px solid #b9d2b1;
 }
 .toast-failed {
   color: #fca17d;
+  outline: 2px solid #fca17d;
 }
 .toast-icon {
   display: flex;

@@ -5,17 +5,35 @@ import bcrypt from "bcrypt";
 var router = express.Router();
 router.use(express.json());
 router.use(Cors());
+import jwt from "jsonwebtoken";
+
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
 
 const register = router.post("/register", async (req, res) => {
   const creds = req.body.creds;
   creds.password = bcrypt.hashSync(creds.password, bcrypt.genSaltSync());
-  const parameterFound = await findByParameter(creds);
+  const parameterFound = await findByParameter({
+    username: creds.username,
+    email: creds.email,
+  });
   if (parameterFound) {
     return res.status(500).send(`${parameterFound} already exists!`);
   }
   const newUser = new Users(creds);
+  const token = createToken(newUser._id);
+  res.status(201).send(token);
   await newUser.save();
-  res.status(201).send(creds);
+});
+const checkUser = router.post("/check-user", async (req, res) => {
+  const username = req.body.username;
+  const userFound = await findByParameter({ username });
+  if (userFound) {
+    res.status(200).send("User found!");
+  } else {
+    res.status(500).send("User does not exist");
+  }
 });
 async function findByParameter(creds) {
   try {
@@ -40,7 +58,11 @@ const login = router.post("/login", async (req, res) => {
     if (user) {
       const match = bcrypt.compareSync(creds.password, user.password);
       if (match) {
-        res.status(200).send(user);
+        const token = createToken(user._id);
+        res.status(200).send({
+          user: { username: user.username, email: user.email },
+          token,
+        });
       } else {
         res.status(500).send("Incorrect password");
       }
@@ -49,4 +71,4 @@ const login = router.post("/login", async (req, res) => {
     }
   } catch (err) {}
 });
-export default { register, login };
+export default { register, login, checkUser };

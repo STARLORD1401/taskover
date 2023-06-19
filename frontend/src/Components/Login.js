@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import "./Form.css";
 import axios from "../axios.js";
-import validateForm from "./FormValidate";
+import { useDispatch } from "react-redux";
+import { logIn } from "../features/user/userSlice.js";
+import { showToast } from "../features/toast/toastSlice.js";
+import { showNavbar } from "../features/navbar/navbarSlice.js";
 
-function Login({ toggleForm, setToggleForm, setToast }) {
+function Login({ setToggleForm }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [errorFlag, setErrorFlag] = useState(false);
   const [creds, setCreds] = useState({ username: "", password: "" });
-  const [formSubmitted, setFormSubmitted] = useState(false);
+
   let credArray = [
     ["username", "username", "text"],
     ["password", "password", "password"],
@@ -19,35 +24,26 @@ function Login({ toggleForm, setToggleForm, setToast }) {
     password: [false, ""],
   });
   useEffect(() => {
-    if (formSubmitted) {
-      const errList = validateForm(creds);
-      setInputError(errList);
-    }
-  }, [creds, formSubmitted]);
+    dispatch(showNavbar(false));
+  }, [creds]);
   const login = async () => {
-    setFormSubmitted(true);
-    const errList = validateForm(creds);
-    let errorFlag = false;
-    for (const err in errList) {
-      if (errList[err][0]) {
-        errorFlag = true;
-      }
-    }
-    setInputError(errList);
     if (!errorFlag) {
       await axios
         .post("/users/login", { creds })
         .then((res) => {
-          setToast([
-            true,
-            "success",
-            `${res.data.username} logged in successfully!`,
-          ]);
+          dispatch(logIn(res.data));
+          dispatch(
+            showToast([
+              true,
+              "success",
+              `${res.data.user.username} logged in successfully!`,
+            ])
+          );
+          localStorage.setItem("user", JSON.stringify(res.data));
           navigate("/");
         })
         .catch((err) => {
-          console.log("err: ", err.response.data);
-          setToast([true, "failed", err.response.data]);
+          dispatch(showToast([true, "failed", err.response.data]));
         });
     }
   };
@@ -67,7 +63,10 @@ function Login({ toggleForm, setToggleForm, setToast }) {
                 type={cred[2]}
                 setCreds={setCreds}
                 creds={creds}
+                setInputError={setInputError}
                 inputError={inputError}
+                setErrorFlag={setErrorFlag}
+                style={{ width: "28vw" }}
               />
             );
           })}
@@ -84,7 +83,7 @@ function Login({ toggleForm, setToggleForm, setToast }) {
         <button
           id="toggle-form"
           onClick={(e) => {
-            setToggleForm(!toggleForm);
+            setToggleForm(false);
           }}
         >
           first time here?

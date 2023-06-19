@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios";
 import Input from "./Input";
+import { showToast } from "../features/toast/toastSlice.js";
+import { useDispatch } from "react-redux";
 import validateForm from "./FormValidate";
 import "./Form.css";
-function Register({ toggleForm, setToggleForm, setToast }) {
+function Register({ setToggleForm }) {
+  const dispatch = useDispatch();
   const [creds, setCreds] = useState({
     email: "",
     username: "",
@@ -34,31 +37,32 @@ function Register({ toggleForm, setToggleForm, setToast }) {
     const errList = validateForm(creds);
     let errorFlag = false;
     for (const err in errList) {
-      console.log(errList[err]);
       if (errList[err][0]) {
         errorFlag = true;
       }
     }
-    console.log(errorFlag);
+    console.log(errList);
     setInputError(errList);
-    if (!errorFlag && creds.password === creds.confirmPassword) {
-      console.log(creds);
+    if (!errorFlag) {
       await axios
-        .post("/users/register", { creds })
+        .post("/users/register", {
+          creds: {
+            email: creds.email,
+            username: creds.username,
+            password: creds.password,
+          },
+        })
         .then((res) => {
-          setToast([
-            true,
-            "success",
-            `${res.data.username} registered in successfully!`,
-          ]);
+          dispatch(
+            showToast([true, "success", `User registered successfully!`])
+          );
           setToggleForm(true);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log("err: ", err.response.data);
-          setToast([true, "failed", err.response.data]);
+          dispatch(showToast([true, "failed", err.response.data]));
         });
-    } else {
-      setToast([true, "failed", "Passwords do not match"]);
     }
   };
   return (
@@ -94,7 +98,7 @@ function Register({ toggleForm, setToggleForm, setToast }) {
         <button
           id="toggle-form"
           onClick={(e) => {
-            setToggleForm(!toggleForm);
+            setToggleForm(true);
           }}
         >
           already registered?

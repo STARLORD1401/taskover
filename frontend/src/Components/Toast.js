@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Toast.css";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "../features/toast/toastSlice.js";
+
 import CloseIcon from "@mui/icons-material/Close";
-function Toast({ setToast, toast }) {
-  setTimeout(setToast, 6000, false);
+function Toast() {
+  const dispatch = useDispatch();
+  const { toast } = useSelector((state) => state.toast);
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(showToast([false, ""]));
+    }, 5000);
+  }, [toast]);
   return (
     <div id="toast-container" className={`toast-${toast[1]}`}>
       <button
         className="toast-close"
         onClick={(e) => {
           clearTimeout();
-          setToast(false);
+          dispatch(showToast([false, ""]));
         }}
       >
         <CloseIcon />
