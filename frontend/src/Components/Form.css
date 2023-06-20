@@ -113,6 +113,9 @@
   color: #caa8f5;
   font-weight: bold;
 }
+.form-input::placeholder {
+  color: #b9d2b1;
+}
 .form-button {
   height: 5vh;
   width: 7vw;

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { useSelector } from "react-redux";
+import { create } from "../features/task/tasksSlice.js";
+import { showToast } from "../features/toast/toastSlice.js";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "../axios.js";
 import "./CreateTask.css";
 import Input from "./Input.js";
 function CreateTask() {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { tab } = useSelector((state) => state.tab);
   const [errorFlag, setErrorFlag] = useState(false);
@@ -46,13 +49,12 @@ function CreateTask() {
       return;
     }
     if (!errorFlag) {
-      setTask({ ...task, completed: false });
-      console.log(task);
       await axios
         .post(
           "/tasks/create-task",
           {
-            task,
+            ...task,
+            completed: false,
           },
           {
             headers: {
@@ -79,6 +81,7 @@ function CreateTask() {
         creds={{ title: "" }}
         inputError={inputError}
         setInputError={setInputError}
+        placeholder="title"
         setErrorFlag={setErrorFlag}
         style={{ width: "23vw" }}
       />
@@ -135,7 +138,7 @@ function CreateTask() {
       <button
         id="create-task-button"
         disabled={
-          task.title.length <= 0 && task.description.length <= 0 && true
+          task.title?.length <= 0 && task.description?.length <= 0 && true
         }
         onClick={(e) => {
           createTask();

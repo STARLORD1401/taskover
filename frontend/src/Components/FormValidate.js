@@ -7,6 +7,7 @@ function validateForm(creds) {
   };
   for (const cred in creds) {
     console.log(cred);
+
     if (creds[cred].length <= 0) {
       errList[cred] = [true, `${cred} should be more than 0 letters`];
     } else {

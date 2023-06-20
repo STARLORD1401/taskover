@@ -8,9 +8,15 @@ router.use(Cors());
 const createTask = router.post("/create-task", async (req, res) => {
   const task = req.body.task;
   task.user_id = req.user._id;
-  const Task = new Tasks(task);
-  await Task.save();
-  res.send(`Task ${task.title} created successfully!`).status(201);
+  console.log(task);
+  try {
+    const Task = new Tasks(task);
+    await Task.save();
+    res.send(`Task ${task.title} created successfully!`).status(201);
+  } catch (err) {
+    console.log("Create task error:", err);
+    res.status(500).send("Create task error");
+  }
 });
 const getTasks = router.get("/get-tasks", async (req, res) => {
   try {

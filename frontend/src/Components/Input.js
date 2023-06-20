@@ -9,6 +9,7 @@ function Input({
   type,
   inputError,
   setInputError,
+  placeholder = "",
   setErrorFlag,
   style,
   formSubmitted,
@@ -45,6 +46,7 @@ function Input({
       <input
         type={type}
         className={inputError[param][0] ? `form-input-error` : `form-input`}
+        placeholder={placeholder}
         style={style}
         onChange={(e) => setCreds({ ...creds, [param]: e.target.value })}
       />
