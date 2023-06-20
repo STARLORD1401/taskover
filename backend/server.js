@@ -11,9 +11,6 @@ app.use(express.json());
 app.use("/", index, () => {
   try {
     console.log("test me");
-    mongoose.connect(process.env.TASKOVER_URI);
-    console.log(`Connected to ${process.env.PORT}`);
-    console.log("Connected to MongoDB");
   } catch (err) {
     console.log(err);
   }
