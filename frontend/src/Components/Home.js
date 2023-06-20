@@ -5,6 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import GroupIcon from "@mui/icons-material/Group";
 import "./Home.css";
 import MyTasks from "./MyTasks";
+import GroupTasks from "./GroupTasks";
 import { groupTasksTab, myTasksTab } from "../features/tab/tabSlice";
 
 function Home() {
@@ -36,6 +37,7 @@ function Home() {
       </div>
       <div className="secondary-container">
         {tab.myTasks && <MyTasks />}
+        {tab.groupTasks && <GroupTasks />}
         <CreateTask />
       </div>
     </div>

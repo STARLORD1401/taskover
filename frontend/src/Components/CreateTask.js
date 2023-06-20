@@ -128,7 +128,7 @@ function CreateTask() {
           task.title?.length <= 0 && task.description?.length <= 0 && true
         }
         onClick={(e) => {
-          createTask();
+          tab.myTasks && createTask();
         }}
       >
         <AddIcon />

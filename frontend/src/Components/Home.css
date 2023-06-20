@@ -77,6 +77,17 @@
   align-items: flex-start;
   overflow-y: scroll;
 }
+.tasks-not-found {
+  height: 60vh;
+  width: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #b9d2b1;
+}
 .task-container {
   margin: 1vh;
   margin-top: 0vh;

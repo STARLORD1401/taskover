@@ -83,38 +83,42 @@ function MyTasks() {
   };
   return (
     <div className="tasks-container">
-      {tasks.map((task, index) => {
-        return (
-          <div className="task-container" key={`task${index}`}>
-            <div className="task-title">{task.title}</div>
-            <div className="task-description">{task.description}</div>
-            <div className="task-button-bar">
-              <button
-                disabled={task.completed && true}
-                className="task-button"
-                onClick={(e) => {
-                  task = { ...task, completed: true };
-                  updateTask(index, task);
-                }}
-              >
-                {task.completed ? (
-                  <CheckCircleIcon style={{ fontSize: "4vh" }} />
-                ) : (
-                  <CheckCircleOutlineIcon style={{ fontSize: "4vh" }} />
-                )}
-              </button>
-              <button
-                className="task-button"
-                onClick={(e) => {
-                  deleteTask(index, task);
-                }}
-              >
-                <DeleteOutlineIcon style={{ fontSize: "3vh" }} />
-              </button>
+      {tasks.length > 0 ? (
+        tasks.map((task, index) => {
+          return (
+            <div className="task-container" key={`task${index}`}>
+              <div className="task-title">{task.title}</div>
+              <div className="task-description">{task.description}</div>
+              <div className="task-button-bar">
+                <button
+                  disabled={task.completed && true}
+                  className="task-button"
+                  onClick={(e) => {
+                    task = { ...task, completed: true };
+                    updateTask(index, task);
+                  }}
+                >
+                  {task.completed ? (
+                    <CheckCircleIcon style={{ fontSize: "4vh" }} />
+                  ) : (
+                    <CheckCircleOutlineIcon style={{ fontSize: "4vh" }} />
+                  )}
+                </button>
+                <button
+                  className="task-button"
+                  onClick={(e) => {
+                    deleteTask(index, task);
+                  }}
+                >
+                  <DeleteOutlineIcon style={{ fontSize: "3vh" }} />
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <div className="tasks-not-found">no tasks found</div>
+      )}
     </div>
   );
 }
