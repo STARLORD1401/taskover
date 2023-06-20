@@ -48,39 +48,29 @@ function CreateTask() {
     if (!errorFlag) {
       setTask({ ...task, completed: false });
       console.log(task);
-      // await axios
-      //   .post(
-      //     "/tasks/create-task",
-      //     {
-      //       task,
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${user?.token}`,
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     dispatch(create(task));
-      //     dispatch(showToast([true, "success", `Task created successfully!`]));
-      //     setTask({ title: "", description: "", completed: false });
-      //   })
-      //   .catch((err) => {});
+      await axios
+        .post(
+          "/tasks/create-task",
+          {
+            task,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(create(task));
+          dispatch(showToast([true, "success", `Task created successfully!`]));
+          setTask({ title: "", description: "", completed: false });
+        })
+        .catch((err) => {});
     }
   };
   return (
     <div id="create-task-container">
       <div id="create-task-header">create new task</div>
-      {/* <input
-        id="create-task-title"
-        autoComplete="off"
-        value={task.title}
-        maxLength={40}
-        placeholder="enter a title (maximum 40 letters)"
-        onChange={(e) => {
-          setTask({ ...task, title: e.target.value });
-        }}
-      /> */}
       <Input
         key="create-task"
         param="title"
