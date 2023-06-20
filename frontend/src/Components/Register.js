@@ -43,7 +43,6 @@ function Register({ setToggleForm }) {
             showToast([true, "success", `User registered successfully!`])
           );
           setToggleForm(true);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log("err: ", err.response.data);

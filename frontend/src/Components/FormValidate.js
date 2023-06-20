@@ -6,8 +6,6 @@ function validateForm(creds) {
     password: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$",
   };
   for (const cred in creds) {
-    console.log(cred);
-
     if (creds[cred].length <= 0) {
       errList[cred] = [true, `${cred} should be more than 0 letters`];
     } else {
@@ -22,7 +20,6 @@ function validateForm(creds) {
     }
   }
   if (creds.confirmPassword && creds?.password !== creds?.confirmPassword) {
-    console.log(creds.confirmPassword);
     errList["password"] = [true, "Passwords do not match"];
     errList["confirmPassword"] = [true, "Passwords do not match"];
   }

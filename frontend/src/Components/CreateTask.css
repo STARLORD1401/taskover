@@ -1,7 +1,7 @@
 #create-task-container {
-  max-height: 80vh;
+  max-height: 75vh;
   width: 30vw;
-  margin: 2.5vh;
+  margin: 1vh;
   background-color: #505263;
   border: 2px solid #b9d2b1;
   border-radius: 20px;
@@ -81,7 +81,7 @@
   color: #727482;
 }
 #create-group-task {
-  min-height: 20vh;
+  max-height: 20vh;
   width: 25vw;
   border-radius: 20px;
   outline: 2px solid #b9d2b1;
