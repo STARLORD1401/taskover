@@ -10,4 +10,5 @@ router.use(requireAuth);
 router.post("/create-task", taskController.createTask);
 router.get("/get-tasks", taskController.getTasks);
 router.put("/update-task", taskController.updateTask);
+router.put("/delete-task", taskController.deleteTask);
 export default router;

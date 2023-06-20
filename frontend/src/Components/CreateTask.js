@@ -5,19 +5,13 @@ import { showToast } from "../features/toast/toastSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "../axios.js";
 import "./CreateTask.css";
-import Input from "./Input.js";
 function CreateTask() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { tab } = useSelector((state) => state.tab);
-  const [errorFlag, setErrorFlag] = useState(false);
   const [task, setTask] = useState({
     title: "",
     description: "",
-  });
-  const [inputError, setInputError] = useState({
-    title: [false, ""],
-    description: [false, ""],
   });
   const [groupMembers, setGroupMembers] = useState([]);
   const [username, setUsername] = useState("");
@@ -45,46 +39,39 @@ function CreateTask() {
   };
 
   const createTask = async () => {
-    if (!user) {
-      return;
-    }
-    if (!errorFlag) {
-      await axios
-        .post(
-          "/tasks/create-task",
-          {
-            ...task,
-            completed: false,
+    await axios
+      .post(
+        "/tasks/create-task",
+        {
+          ...task,
+          completed: false,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(create(task));
-          dispatch(showToast([true, "success", `Task created successfully!`]));
-          setTask({ title: "", description: "", completed: false });
-        })
-        .catch((err) => {});
-    }
+        }
+      )
+      .then((res) => {
+        dispatch(create(res.data));
+        dispatch(showToast([true, "success", `Task created successfully!`]));
+        setTask({ title: "", description: "" });
+      })
+      .catch((err) => {});
   };
   return (
     <div id="create-task-container">
       <div id="create-task-header">create new task</div>
-      <Input
-        key="create-task"
-        param="title"
-        type="text"
-        setCreds={setTask}
-        creds={{ title: "" }}
-        inputError={inputError}
-        setInputError={setInputError}
-        placeholder="title"
-        setErrorFlag={setErrorFlag}
-        style={{ width: "23vw" }}
-      />
+      <input
+        id="create-task-title"
+        autoComplete="off"
+        maxLength={40}
+        placeholder="enter a title (maximum 40 letters)"
+        value={task.title}
+        onChange={(e) => {
+          setTask({ ...task, title: e.target.value });
+        }}
+      ></input>
       <textarea
         id="create-task-description"
         ref={descriptionRef}

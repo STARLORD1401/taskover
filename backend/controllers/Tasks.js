@@ -10,7 +10,7 @@ const createTask = router.post("/create-task", async (req, res) => {
   try {
     const Task = new Tasks(task);
     await Task.save();
-    res.send(`Task ${task.title} created successfully!`).status(201);
+    res.send(Task).status(201);
   } catch (err) {
     console.log("Create task error:", err);
     res.status(500).send("Create task error");
@@ -25,8 +25,8 @@ const getTasks = router.get("/get-tasks", async (req, res) => {
   }
 });
 const updateTask = router.put("/update-task", async (req, res) => {
-  const task = req.body.task;
-  const updatedTask = await Tasks.findByIdAndUpdate(
+  var task = req.body.task;
+  task = await Tasks.findByIdAndUpdate(
     task._id,
     {
       title: task.title,
@@ -35,6 +35,16 @@ const updateTask = router.put("/update-task", async (req, res) => {
     },
     { new: true, upsert: true }
   );
-  res.status(200).send({ updatedTask });
+  res.status(200).send(task);
 });
-export default { createTask, getTasks, updateTask };
+const deleteTask = router.put("/delete-task", async (req, res) => {
+  const task_id = req.body.task._id;
+  try {
+    await Tasks.findByIdAndDelete(task_id);
+    res.status(200).send("Task deleted successfully!");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
+export default { createTask, getTasks, updateTask, deleteTask };
