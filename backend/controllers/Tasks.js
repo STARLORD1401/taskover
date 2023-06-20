@@ -7,7 +7,7 @@ router.use(Cors());
 
 const createTask = router.post("/create-task", async (req, res) => {
   const task = req.body.task;
-  task.user_id = req.user._id;
+  task = { ...task, user_id: req.user._id };
   console.log(task);
   try {
     const Task = new Tasks(task);
