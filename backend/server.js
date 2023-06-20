@@ -9,11 +9,7 @@ app.use(express.json());
 app.listen(process.env.PORT);
 app.use(express.json());
 app.use("/", index, () => {
-  try {
-    console.log("test me");
-  } catch (err) {
-    console.log(err);
-  }
+  console.log("test me");
 });
 app.use("*", (req, res) => res.status(404).json({ ERROR: "Not Found" }));
 export default app;
