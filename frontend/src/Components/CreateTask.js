@@ -5,10 +5,12 @@ import { showToast } from "../features/toast/toastSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "../axios.js";
 import "./CreateTask.css";
+import { setLoading } from "../features/loading/loadingSlice.js";
 function CreateTask() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { tab } = useSelector((state) => state.tab);
+  const { loading } = useSelector((state) => state.loading);
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -39,6 +41,7 @@ function CreateTask() {
   };
 
   const createTask = async () => {
+    dispatch(setLoading(true));
     await axios
       .post(
         "/tasks/create-task",
@@ -56,6 +59,7 @@ function CreateTask() {
         dispatch(create(res.data));
         dispatch(showToast([true, "success", `Task created successfully!`]));
         setTask({ title: "", description: "" });
+        dispatch(setLoading(false));
       })
       .catch((err) => {});
   };
@@ -125,13 +129,16 @@ function CreateTask() {
       <button
         id="create-task-button"
         disabled={
-          task.title?.length <= 0 && task.description?.length <= 0 && true
+          task.title?.length <= 0 &&
+          task.description?.length <= 0 &&
+          loading &&
+          true
         }
         onClick={(e) => {
           tab.myTasks && createTask();
         }}
       >
-        <AddIcon />
+        {loading ? <p style={{ fontWeight: "bold" }}>loading</p> : <AddIcon />}
       </button>
     </div>
   );
