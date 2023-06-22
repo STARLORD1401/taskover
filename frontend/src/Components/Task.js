@@ -75,8 +75,14 @@ function Task({ task, index }) {
           <LoadingAnimation height="5vh" backgroundColor="#b9d2b1d9" />
         </div>
       )}
-      <div className="task-title">{task.title}</div>
-      <div className="task-description">{task.description}</div>
+      <div className="task-title">
+        {task.title.slice(0, 10)}
+        {task.title.length > 10 && "..."}
+      </div>
+      <div className="task-description">
+        {task.description.slice(0, 40)}
+        {task.description.length > 40 && "..."}
+      </div>
       <div className="task-button-bar">
         <button
           disabled={task.completed && true}

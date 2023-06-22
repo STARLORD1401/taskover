@@ -111,13 +111,15 @@
 }
 .task-description {
   padding: 15px;
-  height: 11vh;
+  max-width: 18vh;
+  max-height: 11vh;
   color: #b9d2b1;
   font-size: 15px;
   font-weight: bold;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .task-button-bar {
   height: 7vh;

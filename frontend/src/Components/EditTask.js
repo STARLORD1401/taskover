@@ -40,8 +40,8 @@ function EditTask({ updateTask, editTask, index, setEditTask }) {
       <input
         id="create-task-title"
         autoComplete="off"
-        maxLength={40}
-        placeholder="enter a title (maximum 40 letters)"
+        maxLength={20}
+        placeholder="enter a title (maximum 20 letters)"
         value={task.title}
         onChange={(e) => {
           setTask({ ...task, title: e.target.value });
@@ -53,8 +53,8 @@ function EditTask({ updateTask, editTask, index, setEditTask }) {
         value={task.description}
         autoComplete="off"
         style={{ maxHeight: "20vh" }}
-        placeholder="enter a description (maximum 150 letters)"
-        maxLength={150}
+        placeholder="enter a description (maximum 60 letters)"
+        maxLength={60}
         onChange={(e) => {
           setTask({ ...task, description: e.target.value });
         }}
