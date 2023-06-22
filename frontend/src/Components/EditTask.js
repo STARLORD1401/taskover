@@ -1,22 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { create } from "../features/task/tasksSlice.js";
-import { showToast } from "../features/toast/toastSlice.js";
-import { useSelector, useDispatch } from "react-redux";
+import EditIcon from "@mui/icons-material/Edit";
+import LoadingAnimation from "./LoadingAnimation.js";
+import { useSelector } from "react-redux";
 import axios from "../axios.js";
 import "./CreateTask.css";
-import { setLoading } from "../features/loading/loadingSlice.js";
-import LoadingAnimation from "./LoadingAnimation.js";
-
-function CreateTask() {
-  const dispatch = useDispatch();
+function EditTask({ updateTask, editTask, index, setEditTask }) {
   const { user } = useSelector((state) => state.user);
   const { tab } = useSelector((state) => state.tab);
   const { loading } = useSelector((state) => state.loading);
-  const [task, setTask] = useState({
-    title: "",
-    description: "",
-  });
+  const [task, setTask] = useState(editTask);
   const [groupMembers, setGroupMembers] = useState([]);
   const [username, setUsername] = useState("");
   const descriptionRef = useRef();
@@ -41,33 +34,9 @@ function CreateTask() {
         console.log(err.response.data);
       });
   };
-
-  const createTask = async () => {
-    dispatch(setLoading(true));
-    await axios
-      .post(
-        "/tasks/create-task",
-        {
-          ...task,
-          completed: false,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(create(res.data));
-        dispatch(showToast([true, "success", `Task created successfully!`]));
-        setTask({ title: "", description: "" });
-        dispatch(setLoading(false));
-      })
-      .catch((err) => {});
-  };
   return (
     <div id="create-task-container">
-      <div id="create-task-header">create new task</div>
+      <div id="create-task-header">edit task</div>
       <input
         id="create-task-title"
         autoComplete="off"
@@ -137,17 +106,18 @@ function CreateTask() {
           true
         }
         onClick={(e) => {
-          tab.myTasks && createTask();
+          tab.myTasks &&
+            updateTask(index, task, "edited").then(setEditTask(false));
         }}
       >
         {loading ? (
           <LoadingAnimation height="3vh" backgroundColor="#727482" />
         ) : (
-          <AddIcon />
+          <EditIcon />
         )}
       </button>
     </div>
   );
 }
 
-export default CreateTask;
+export default EditTask;

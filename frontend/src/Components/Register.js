@@ -4,6 +4,8 @@ import Input from "./Input";
 import { showToast } from "../features/toast/toastSlice.js";
 import { useDispatch } from "react-redux";
 import "./Form.css";
+import LoadingAnimation from "./LoadingAnimation";
+
 function Register({ setToggleForm }) {
   const dispatch = useDispatch();
   const [creds, setCreds] = useState({
@@ -24,11 +26,13 @@ function Register({ setToggleForm }) {
     email: [false, ""],
     confirmPassword: [false, ""],
   });
+  const [loading, setLoading] = useState(false);
   const [errorFlag, setErrorFlag] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const register = async () => {
     setFormSubmitted(true);
+    setLoading(true);
     if (!errorFlag) {
       await axios
         .post("/users/register", {
@@ -43,10 +47,12 @@ function Register({ setToggleForm }) {
             showToast([true, "success", `User registered successfully!`])
           );
           setToggleForm(true);
+          setLoading(false);
         })
         .catch((err) => {
           console.log("err: ", err.response.data);
           dispatch(showToast([true, "failed", err.response.data]));
+          setLoading(false);
         });
     }
   };
@@ -82,7 +88,11 @@ function Register({ setToggleForm }) {
             register();
           }}
         >
-          register
+          {loading ? (
+            <LoadingAnimation height="3vh" backgroundColor="#727482" />
+          ) : (
+            <p>register</p>
+          )}
         </button>
         <button
           id="toggle-form"

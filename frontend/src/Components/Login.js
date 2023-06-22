@@ -7,10 +7,12 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../features/user/userSlice.js";
 import { showToast } from "../features/toast/toastSlice.js";
 import { showNavbar } from "../features/navbar/navbarSlice.js";
+import LoadingAnimation from "./LoadingAnimation";
 
 function Login({ setToggleForm }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [errorFlag, setErrorFlag] = useState(false);
   const [creds, setCreds] = useState({ username: "", password: "" });
 
@@ -31,6 +33,7 @@ function Login({ setToggleForm }) {
   }, [creds]);
   const login = async () => {
     setFormSubmitted(true);
+    setLoading(true);
     if (!errorFlag) {
       await axios
         .post("/users/login", { creds })
@@ -44,10 +47,12 @@ function Login({ setToggleForm }) {
             ])
           );
           localStorage.setItem("user", JSON.stringify(res.data));
+          setLoading(false);
           navigate("/");
         })
         .catch((err) => {
           dispatch(showToast([true, "failed", err.response.data]));
+          setLoading(false);
         });
     }
   };
@@ -80,15 +85,19 @@ function Login({ setToggleForm }) {
         <button
           className="form-button"
           onClick={(e) => {
-            login();
+            !loading && login();
           }}
         >
-          login
+          {loading ? (
+            <LoadingAnimation height="3vh" backgroundColor="#727482" />
+          ) : (
+            <p>login</p>
+          )}
         </button>
         <button
           id="toggle-form"
           onClick={(e) => {
-            setToggleForm(false);
+            !loading && setToggleForm(false);
           }}
         >
           first time here?

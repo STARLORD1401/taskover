@@ -145,3 +145,23 @@
   color: #727482;
   outline: none;
 }
+.task-loading-overlay {
+  position: absolute;
+  background-color: #727482;
+  height: 25vh;
+  width: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+.tasks-loading-overlay {
+  position: absolute;
+  height: 60vh;
+  width: 40vw;
+  background-color: #505263;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
